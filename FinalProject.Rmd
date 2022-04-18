@@ -46,6 +46,8 @@ With the above method, we can see that there are 0 missing/Null values in the da
 You can also embed plots, for example:
 
 ```{r pressure, echo=FALSE}
+hist(bike_data$model_year, main = "Frequency of Bikes per Model Year", xlab = "Model Year", ylab = "Frequency")
+boxplot(bike_data$power)
 ```
 
 ## Part 3 - Hypothesis Testing
