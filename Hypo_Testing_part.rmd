@@ -1,0 +1,161 @@
+---
+title: "Hypothesis_testing_bike"
+author: "Kreetha"
+date: '2022-04-18'
+output:
+  html_document: default
+  word_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+setwd("C:/Users/k_r_e/Desktop/coursework/Spring2022/ITMS514(Analytics)/Proj")
+library(tidyverse)
+library(webr)
+```
+
+```{r bikes}
+data <- read.csv("Cleaned_bike_data.csv")
+str(data)
+```
+
+## Hypothesis testing
+### Testing First hand owner price higher the Second hand owner (One-side test)
+
+\begin{align*}
+H_0: \mu_{first_owner_price}-\mu_{second_owner_price} & = 0, \\
+H_1: \mu_{first_owner_price}-\mu_{second_owner_price} & > 0. 
+\end{align*}
+
+```{r , fig.width=8, fig.height=7}
+#split first hand owner and second hand owner
+first_hand_owner <- subset(data, owner=="first owner")
+second_hand_owner <- subset(data, owner=="second owner")
+
+
+first_second_owner <- rbind(first_hand_owner, second_hand_owner)
+
+
+ggplot(first_second_owner, aes(x=owner, y=price, fill=owner)) + 
+    geom_boxplot(alpha=0.8) +
+    theme(legend.position="none") +
+    scale_fill_brewer(palette="Dark2") +
+    coord_flip()
+```
+#### Don't know variance. So, use T-testing but need to check variance whether or not equal. \
+#### Check variance equal or not \
+
+\begin{align*}
+H_0: \sigma_{first_owner_price}^2 = \sigma_{second_owner_price}^2, \\
+H_1:  \sigma_{first_owner_price}^2 \ne \sigma_{second_owner_price}^2 
+\end{align*}
+
+```{r , fig.width=8, fig.height=7}
+var.test(first_hand_owner$price, second_hand_owner$price, alternative = "two.sided")
+#Not reject H0 => variance equal
+
+#t-testing
+t.test(first_hand_owner$price, second_hand_owner$price,alternative="greater", var.equal = TRUE, conf.level = 0.95)
+
+plot(t.test(first_hand_owner$price, second_hand_owner$price,alternative="greater", var.equal = TRUE, conf.level = 0.95))
+
+```
+\
+>Should not reject Mu(first_price)=Mu(second_price) 
+
+
+### Testing Price of Second hand bike not be different from third and later (Two-side test) \
+
+\begin{align*}
+H_0: \mu_{second_owner_price})-\mu_{later_second_owner_price} & = 0, \\
+H_1: \mu_{second_owner_price}-\mu_{later_second_owner_price} & \ne 0. 
+\end{align*}
+
+```{r, fig.width=8, fig.height=7}
+second_hand_owner <- subset(data, owner=="second owner")
+later_second_hand_owner <- subset(data, owner =="third owner" | owner == "fourth owner or more")
+
+later_second_hand_owner$owner[later_second_hand_owner$owner == "third owner" | later_second_hand_owner$owner == "fourth owner or more"]<- "third owner or more"
+
+second_later_owner <- rbind(second_hand_owner, later_second_hand_owner)
+
+
+ggplot(second_later_owner, aes(x=owner, y=price, fill=owner)) + 
+    geom_boxplot(alpha=0.8) +
+    theme(legend.position="none") +
+    scale_fill_brewer(palette="Dark2") +
+    coord_flip()
+```
+
+
+#### Don't know variance. So, use T-testing but need to check variance whether or not equal. \
+#### Check variance equal or not \
+\begin{align*}
+H_0: \sigma_{second_owner_price}^2 = \sigma_{later_second_owner_price}^2, \\
+H_1:  \sigma_{second_owner_price}^2 \ne \sigma_{later_second_owner_price}^2 
+\end{align*}
+
+```{r, fig.width=8, fig.height=7}
+var.test(second_hand_owner$price, later_second_hand_owner$price, alternative = "two.sided")
+#reject H0 => variance not equal
+
+#t-testing
+t.test(second_hand_owner$price, later_second_hand_owner$price,alternative="two.sided", var.equal = FALSE, conf.level = 0.95)
+
+plot(t.test(second_hand_owner$price, later_second_hand_owner$price,alternative="two.sided", var.equal = FALSE, conf.level = 0.95))
+```
+\
+> Should reject Mu(second_price)=Mu(later_second_price) => (Mu(second_price) != Mu(later_second_price)
+
+
+### Testing Higher median kms driven price cheaper than lower median kms driven price (One side test)
+
+\begin{align*}
+H_0: \mu_{greater_median_kms_driven_price}-\mu_{less_median_kms_driven_price}} & = 0, \\
+H_1: \mu_{greater_median_kms_driven_price}-\mu_{less_median_kms_driven_price}} & < 0. 
+\end{align*}
+
+```{r,  fig.width=8, fig.height=7}
+median(data$kms_driven)
+
+
+greater_median_kms_driven <- subset(data, kms_driven > 18000)
+less_median_kms_driven <- subset(data, kms_driven <= 18000)
+
+greater_median_kms_driven["median_kms_driven"] <- "greater"
+less_median_kms_driven["median_kms_driven"] <- "less"
+
+all_kms_driven <- rbind(greater_median_kms_driven, less_median_kms_driven)
+
+
+ggplot(all_kms_driven, aes(x=median_kms_driven, y=price, fill=median_kms_driven)) + 
+    geom_boxplot(alpha=0.8) +
+    theme(legend.position="none") +
+    scale_fill_brewer(palette="Dark2") +
+    coord_flip()
+
+```
+
+#### Don't know variance. So, use T-testing but need to check variance whether or not equal.
+#### Check variance equal or not
+\begin{align*}
+H_0: \sigma_{greater_median_kms_driven_price}^2 = \sigma_{less_median_kms_driven_price}^2, \\
+H_1:  \sigma_{greater_median_kms_driven_price}^2 \ne \sigma_{less_median_kms_driven_price}^2 
+\end{align*}
+
+```{r, fig.width=8, fig.height=7}
+var.test(greater_median_kms_driven$price, less_median_kms_driven$price , alternative = "two.sided")
+# reject H0 => variance not equal
+
+#t-testing
+t.test(greater_median_kms_driven$price, less_median_kms_driven$price,alternative="less", var.equal = FALSE, conf.level = 0.95)
+
+plot(t.test(greater_median_kms_driven$price, less_median_kms_driven$price,alternative="less", var.equal = FALSE, conf.level = 0.95))
+```
+\
+> Should reject H0 Mu(over_mean_kms_driven_price)=Mu(less_mean_kms_driven_price) => Mu(over_mean_kms_driven_price)< Mu(less_mean_kms_driven_price)
+
+
+
+
