@@ -10,7 +10,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-setwd("C:/Users/k_r_e/Desktop/coursework/Spring2022/ITMS514(Analytics)/Proj")
+#setwd("C:/Users/k_r_e/Desktop/coursework/Spring2022/ITMS514(Analytics)/Proj")
 library(tidyverse)
 library(webr)
 ```
