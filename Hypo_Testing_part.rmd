@@ -1,74 +1,34 @@
 ---
-title: "FinalProject"
-author: "Group 3"
-output: html_document
+title: "Hypothesis_testing_bike"
+author: "Kreetha"
+date: '2022-04-18'
+output:
+  html_document: default
+  word_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(tigerstats)
-library(readr)
+setwd("C:/Users/k_r_e/Desktop/coursework/Spring2022/ITMS514(Analytics)/Proj")
 library(tidyverse)
 library(webr)
 ```
 
-## Section 1 - Loading the data and Exploring the data
-
-We have selected Bike dataset to perform exploration of the data. We start by loading the data into the R Markdown file
-
-```{r}
-bike_data <- read_csv("Cleaned_bike_data.csv",show_col_types = FALSE)
-```
-
-
-```{r}
-summary(bike_data)
-```
-
-We can see that there are different columns in the table which are Model_name, Model_year, Kms_driven, Owner, Location, Mileage, Power and Price.
-
-To determine the different types of the datatypes, we can use the str command in R. This command tells us the different types of data which is present in the datasheet.
-```{r}
-str(bike_data)
-```
-
-The different types of datatypes which are present in the dataset are numeric and charachter.  
-
-To determine the null values in the table, we can use the built in method in R. 
-
-```{r}
-null_values <- sum(is.na(bike_data)) 
-null_values
-```
-
-With the above method, we can see that there are 0 missing/Null values in the dataset.
-
-## Part 2 - Graphical Overview
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-hist(bike_data$model_year, main = "Frequency of Bikes per Model Year", xlab = "Model Year", ylab = "Frequency")
-boxplot(bike_data$power)
-```
-
-## Part 3 - Hypothesis Testing
-
-```{r }
+```{r bikes}
 data <- read.csv("Cleaned_bike_data.csv")
 str(data)
 ```
 
+## Hypothesis testing
 ### Testing First hand owner price higher the Second hand owner (One-side test)
 
 \begin{align*}
-H_0: \mu_{first\_owner\_price}-\mu_{second\_owner\_price} & = 0 \\
-H_1: \mu_{first\_owner\_price}-\mu_{second\_owner\_price} & > 0 
+H_0: \mu_{first_owner_price}-\mu_{second_owner_price} & = 0, \\
+H_1: \mu_{first_owner_price}-\mu_{second_owner_price} & > 0. 
 \end{align*}
 
 ```{r , fig.width=8, fig.height=7}
-
-
 #split first hand owner and second hand owner
 first_hand_owner <- subset(data, owner=="first owner")
 second_hand_owner <- subset(data, owner=="second owner")
@@ -87,8 +47,8 @@ ggplot(first_second_owner, aes(x=owner, y=price, fill=owner)) +
 #### Check variance equal or not \
 
 \begin{align*}
-H_0: \sigma_{first\_owner\_price}^2 = \sigma_{second\_owner\_price}^2 \\
-H_1:  \sigma_{first\_owner\_price}^2 \ne \sigma_{second\_owner\_price}^2 
+H_0: \sigma_{first_owner_price}^2 = \sigma_{second_owner_price}^2, \\
+H_1:  \sigma_{first_owner_price}^2 \ne \sigma_{second_owner_price}^2 
 \end{align*}
 
 ```{r , fig.width=8, fig.height=7}
@@ -108,10 +68,9 @@ plot(t.test(first_hand_owner$price, second_hand_owner$price,alternative="greater
 ### Testing Price of Second hand bike not be different from third and later (Two-side test) \
 
 \begin{align*}
-H_0: \mu_{second\_owner\_price}-\mu_{later\_second\_owner\_price} & = 0 \\
-H_1: \mu_{second\_owner\_price}-\mu_{later\_second\_owner\_price} & > 0 
+H_0: \mu_{second_owner_price})-\mu_{later_second_owner_price} & = 0, \\
+H_1: \mu_{second_owner_price}-\mu_{later_second_owner_price} & \ne 0. 
 \end{align*}
-
 
 ```{r, fig.width=8, fig.height=7}
 second_hand_owner <- subset(data, owner=="second owner")
@@ -133,8 +92,8 @@ ggplot(second_later_owner, aes(x=owner, y=price, fill=owner)) +
 #### Don't know variance. So, use T-testing but need to check variance whether or not equal. \
 #### Check variance equal or not \
 \begin{align*}
-H_0: \sigma_{second\_owner\_price}^2 = \sigma_{later\_second\_owner\_price}^2 \\
-H_1:  \sigma_{second\_owner\_price}^2 \ne \sigma_{later\_second\_owner\_price}^2 
+H_0: \sigma_{second_owner_price}^2 = \sigma_{later_second_owner_price}^2, \\
+H_1:  \sigma_{second_owner_price}^2 \ne \sigma_{later_second_owner_price}^2 
 \end{align*}
 
 ```{r, fig.width=8, fig.height=7}
@@ -153,8 +112,8 @@ plot(t.test(second_hand_owner$price, later_second_hand_owner$price,alternative="
 ### Testing Higher median kms driven price cheaper than lower median kms driven price (One side test)
 
 \begin{align*}
-H_0: \mu_{greater\_median\_kms\_driven}-\mu_{less\_median\_kms\_driven} & = 0 \\
-H_1: \mu_{greater\_median\_kms\_driven}-\mu_{less\_median\_kms\_driven} & > 0
+H_0: \mu_{greater_median_kms_driven_price}-\mu_{less_median_kms_driven_price}} & = 0, \\
+H_1: \mu_{greater_median_kms_driven_price}-\mu_{less_median_kms_driven_price}} & < 0. 
 \end{align*}
 
 ```{r,  fig.width=8, fig.height=7}
@@ -181,8 +140,8 @@ ggplot(all_kms_driven, aes(x=median_kms_driven, y=price, fill=median_kms_driven)
 #### Don't know variance. So, use T-testing but need to check variance whether or not equal.
 #### Check variance equal or not
 \begin{align*}
-H_0: \sigma_{greater\_median\_kms\_driven\_price}^2 = \sigma_{less\_median\_kms\_driven\_price}^2 \\
-H_1:  \sigma_{greater\_median\_kms\_driven\_price}^2 \ne \sigma_{less\_median\_kms\_driven\_price}^2 
+H_0: \sigma_{greater_median_kms_driven_price}^2 = \sigma_{less_median_kms_driven_price}^2, \\
+H_1:  \sigma_{greater_median_kms_driven_price}^2 \ne \sigma_{less_median_kms_driven_price}^2 
 \end{align*}
 
 ```{r, fig.width=8, fig.height=7}
@@ -200,6 +159,3 @@ plot(t.test(greater_median_kms_driven$price, less_median_kms_driven$price,altern
 
 
 
-## Part 4 - Linear Regression
-
-This section is for Linear Regression.

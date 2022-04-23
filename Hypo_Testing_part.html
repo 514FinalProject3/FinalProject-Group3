@@ -9,10 +9,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Group 3" />
+<meta name="author" content="Kreetha" />
 
+<meta name="date" content="2022-04-18" />
 
-<title>FinalProject</title>
+<title>Hypothesis_testing_bike</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -358,76 +359,24 @@ pre code {
 
 
 
-<h1 class="title toc-ignore">FinalProject</h1>
-<h4 class="author">Group 3</h4>
+<h1 class="title toc-ignore">Hypothesis_testing_bike</h1>
+<h4 class="author">Kreetha</h4>
+<h4 class="date">2022-04-18</h4>
 
 </div>
 
 
-<div id="section-1---loading-the-data-and-exploring-the-data" class="section level2">
-<h2>Section 1 - Loading the data and Exploring the data</h2>
-<p>We have selected Bike dataset to perform exploration of the data. We
-start by loading the data into the R Markdown file</p>
-<pre class="r"><code>bike_data &lt;- read_csv(&quot;Cleaned_bike_data.csv&quot;,show_col_types = FALSE)</code></pre>
-<pre class="r"><code>summary(bike_data)</code></pre>
-<pre><code>##   model_name          model_year     kms_driven         owner          
-##  Length:5062        Min.   :1970   Min.   :      0   Length:5062       
-##  Class :character   1st Qu.:2014   1st Qu.:   9782   Class :character  
-##  Mode  :character   Median :2016   Median :  18000   Mode  :character  
-##                     Mean   :2015   Mean   :  24079                     
-##                     3rd Qu.:2018   3rd Qu.:  30708                     
-##                     Max.   :2021   Max.   :1000000                     
-##    location            mileage         power            price        
-##  Length:5062        Min.   : 5.0   Min.   :  6.15   Min.   :      0  
-##  Class :character   1st Qu.:35.0   1st Qu.: 14.00   1st Qu.:  44925  
-##  Mode  :character   Median :38.0   Median : 19.80   Median :  80000  
-##                     Mean   :41.8   Mean   : 21.93   Mean   : 115391  
-##                     3rd Qu.:53.0   3rd Qu.: 24.60   3rd Qu.: 133375  
-##                     Max.   :95.0   Max.   :197.30   Max.   :1900000</code></pre>
-<p>We can see that there are different columns in the table which are
-Model_name, Model_year, Kms_driven, Owner, Location, Mileage, Power and
-Price.</p>
-<p>To determine the different types of the datatypes, we can use the str
-command in R. This command tells us the different types of data which is
-present in the datasheet.</p>
-<pre class="r"><code>str(bike_data)</code></pre>
-<pre><code>## spec_tbl_df [5,062 x 8] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
-##  $ model_name: chr [1:5062] &quot;Bajaj Avenger Cruise&quot; &quot;Royal Enfield Classic&quot; &quot;Hyosung GT250R 2012&quot; &quot;KTM Duke&quot; ...
-##  $ model_year: num [1:5062] 2017 2016 2012 2012 2016 ...
-##  $ kms_driven: num [1:5062] 17000 50000 14795 24561 19718 ...
-##  $ owner     : chr [1:5062] &quot;first owner&quot; &quot;first owner&quot; &quot;first owner&quot; &quot;third owner&quot; ...
-##  $ location  : chr [1:5062] &quot;hyderabad&quot; &quot;hyderabad&quot; &quot;hyderabad&quot; &quot;bangalore&quot; ...
-##  $ mileage   : num [1:5062] 35 35 30 35 65 25 35 32 40 35 ...
-##  $ power     : num [1:5062] 19 19.8 28 25 17 42.9 19.8 24.5 19.8 19.8 ...
-##  $ price     : num [1:5062] 63500 115000 300000 63400 55000 ...
-##  - attr(*, &quot;spec&quot;)=
-##   .. cols(
-##   ..   model_name = col_character(),
-##   ..   model_year = col_double(),
-##   ..   kms_driven = col_double(),
-##   ..   owner = col_character(),
-##   ..   location = col_character(),
-##   ..   mileage = col_double(),
-##   ..   power = col_double(),
-##   ..   price = col_double()
-##   .. )
-##  - attr(*, &quot;problems&quot;)=&lt;externalptr&gt;</code></pre>
-<p>The different types of datatypes which are present in the dataset are
-numeric and charachter.</p>
-<p>To determine the null values in the table, we can use the built in
-method in R.</p>
-<pre class="r"><code>null_values &lt;- sum(is.na(bike_data)) 
-null_values</code></pre>
-<pre><code>## [1] 0</code></pre>
-<p>With the above method, we can see that there are 0 missing/Null
-values in the dataset.</p>
-</div>
-<div id="part-2---graphical-overview" class="section level2">
-<h2>Part 2 - Graphical Overview</h2>
-<p>You can also embed plots, for example:</p>
-</div>
-<div id="part-3---hypothesis-testing" class="section level2">
-<h2>Part 3 - Hypothesis Testing</h2>
+<ul>
+<li>model_name<br />
+</li>
+<li>model_year in B.C.</li>
+<li>kms_driven -&gt; kilometers driven</li>
+<li>owner -&gt; ex. first owner, second owner</li>
+<li>location -&gt; province in India</li>
+<li>mileage -&gt; mileage per gallon</li>
+<li>power</li>
+<li>price</li>
+</ul>
 <pre class="r"><code>data &lt;- read.csv(&quot;Cleaned_bike_data.csv&quot;)
 str(data)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    5062 obs. of  8 variables:
@@ -439,12 +388,14 @@ str(data)</code></pre>
 ##  $ mileage   : num  35 35 30 35 65 25 35 32 40 35 ...
 ##  $ power     : num  19 19.8 28 25 17 42.9 19.8 24.5 19.8 19.8 ...
 ##  $ price     : int  63500 115000 300000 63400 55000 198000 136900 112000 110000 160000 ...</code></pre>
+<div id="hypothesis-testing" class="section level2">
+<h2>Hypothesis testing</h2>
 <div id="testing-first-hand-owner-price-higher-the-second-hand-owner-one-side-test" class="section level3">
 <h3>Testing First hand owner price higher the Second hand owner
 (One-side test)</h3>
 <p><span class="math display">\[\begin{align*}
-H_0: \mu_{first\_owner\_price}-\mu_{second\_owner\_price} &amp; = 0 \\
-H_1: \mu_{first\_owner\_price}-\mu_{second\_owner\_price} &amp; &gt; 0
+H_0: \mu_{first_owner_price}-\mu_{second_owner_price} &amp; = 0, \\
+H_1: \mu_{first_owner_price}-\mu_{second_owner_price} &amp; &gt; 0.
 \end{align*}\]</span></p>
 <pre class="r"><code>#split first hand owner and second hand owner
 first_hand_owner &lt;- subset(data, owner==&quot;first owner&quot;)
@@ -465,8 +416,8 @@ whether or not equal.<br />
 #### Check variance equal or not<br />
 </p>
 <p><span class="math display">\[\begin{align*}
-H_0: \sigma_{first\_owner\_price}^2 = \sigma_{second\_owner\_price}^2 \\
-H_1:  \sigma_{first\_owner\_price}^2 \ne \sigma_{second\_owner\_price}^2
+H_0: \sigma_{first_owner_price}^2 = \sigma_{second_owner_price}^2, \\
+H_1:  \sigma_{first_owner_price}^2 \ne \sigma_{second_owner_price}^2
 \end{align*}\]</span></p>
 <pre class="r"><code>var.test(first_hand_owner$price, second_hand_owner$price, alternative = &quot;two.sided&quot;)</code></pre>
 <pre><code>## 
@@ -504,10 +455,10 @@ t.test(first_hand_owner$price, second_hand_owner$price,alternative=&quot;greater
 later (Two-side test)<br />
 </h3>
 <p><span class="math display">\[\begin{align*}
-H_0: \mu_{second\_owner\_price}-\mu_{later\_second\_owner\_price} &amp;
-= 0 \\
-H_1: \mu_{second\_owner\_price}-\mu_{later\_second\_owner\_price} &amp;
-&gt; 0
+H_0: \mu_{second_owner_price})-\mu_{later_second_owner_price} &amp; = 0,
+\\
+H_1: \mu_{second_owner_price}-\mu_{later_second_owner_price} &amp; \ne
+0.
 \end{align*}\]</span></p>
 <pre class="r"><code>second_hand_owner &lt;- subset(data, owner==&quot;second owner&quot;)
 later_second_hand_owner &lt;- subset(data, owner ==&quot;third owner&quot; | owner == &quot;fourth owner or more&quot;)
@@ -532,10 +483,10 @@ whether or not equal.<br />
 <h4>Check variance equal or not<br />
 </h4>
 <p><span class="math display">\[\begin{align*}
-H_0: \sigma_{second\_owner\_price}^2 =
-\sigma_{later\_second\_owner\_price}^2 \\
-H_1:  \sigma_{second\_owner\_price}^2 \ne
-\sigma_{later\_second\_owner\_price}^2
+H_0: \sigma_{second_owner_price}^2 =
+\sigma_{later_second_owner_price}^2, \\
+H_1:  \sigma_{second_owner_price}^2 \ne
+\sigma_{later_second_owner_price}^2
 \end{align*}\]</span></p>
 <pre class="r"><code>var.test(second_hand_owner$price, later_second_hand_owner$price, alternative = &quot;two.sided&quot;)</code></pre>
 <pre><code>## 
@@ -574,10 +525,12 @@ t.test(second_hand_owner$price, later_second_hand_owner$price,alternative=&quot;
 <h3>Testing Higher median kms driven price cheaper than lower median kms
 driven price (One side test)</h3>
 <p><span class="math display">\[\begin{align*}
-H_0: \mu_{greater\_median\_kms\_driven}-\mu_{less\_median\_kms\_driven}
-&amp; = 0 \\
-H_1: \mu_{greater\_median\_kms\_driven}-\mu_{less\_median\_kms\_driven}
-&amp; &gt; 0
+H_0:
+\mu_{greater_median_kms_driven_price}-\mu_{less_median_kms_driven_price}}
+&amp; = 0, \\
+H_1:
+\mu_{greater_median_kms_driven_price}-\mu_{less_median_kms_driven_price}}
+&amp; &lt; 0.
 \end{align*}\]</span></p>
 <pre class="r"><code>median(data$kms_driven)</code></pre>
 <pre><code>## [1] 18000</code></pre>
@@ -603,10 +556,10 @@ whether or not equal.</h4>
 <div id="check-variance-equal-or-not-1" class="section level4">
 <h4>Check variance equal or not</h4>
 <p><span class="math display">\[\begin{align*}
-H_0: \sigma_{greater\_median\_kms\_driven\_price}^2 =
-\sigma_{less\_median\_kms\_driven\_price}^2 \\
-H_1:  \sigma_{greater\_median\_kms\_driven\_price}^2 \ne
-\sigma_{less\_median\_kms\_driven\_price}^2
+H_0: \sigma_{greater_median_kms_driven_price}^2 =
+\sigma_{less_median_kms_driven_price}^2, \\
+H_1:  \sigma_{greater_median_kms_driven_price}^2 \ne
+\sigma_{less_median_kms_driven_price}^2
 \end{align*}\]</span></p>
 <pre class="r"><code>var.test(greater_median_kms_driven$price, less_median_kms_driven$price , alternative = &quot;two.sided&quot;)</code></pre>
 <pre><code>## 
@@ -642,10 +595,6 @@ Mu(over_mean_kms_driven_price)=Mu(less_mean_kms_driven_price) =&gt;
 Mu(over_mean_kms_driven_price)&lt; Mu(less_mean_kms_driven_price)</p>
 </div>
 </div>
-</div>
-<div id="part-4---linear-regression" class="section level2">
-<h2>Part 4 - Linear Regression</h2>
-<p>This section is for Linear Regression.</p>
 </div>
 
 
