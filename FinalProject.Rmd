@@ -51,10 +51,11 @@ hist(bike_data$model_year, main = "Frequency of Bikes per Model Year", xlab = "M
 
 > This graph indicates the frequency of bikes by their model year. While most of the motorcycles were manufactured in from 2010-2019, there are some from 2000-2009, and 2020 and onwards as well. There are also some preceding the year 2000, and while we cannot ignore them, those numbers are incredibly minute and non-discernible.
 
-Standardizing some values and checking for outliers:
+### Standardizing some values and checking for outliers:
 
 ```{r}
 standard_bikePower <- scale(bike_data$power)
+par(mfrow = c(1,2))
 boxplot(standard_bikePower)
 hist(bike_data$power)
 ```
@@ -62,7 +63,7 @@ hist(bike_data$power)
 > These graphs show us that outliers do indeed exist in this data. The boxplot (of the scaled data) indicates that all of the outliers are high and exist beyond Q3, and also shows that the interquartile range is small, and that Q1 and Q3 are as well.
 The histogram (not scaled) indicates the true values of the power of these bikes, and we can immediately see that the majority of them have a power of under 50, with over 2500 falling into the 20-29 range alone. However, there are still some small numbers of bikes that exceed that, some with a power of close to 200.
 
-Extracting brand names from model names column to be used in later graphs
+### Extracting brand names from model names column to be used in later graphs
 
 ```{r}
 brand_model <- bike_data$model_name 
@@ -75,7 +76,7 @@ bike_data_new <- cbind(bike_data, brand_df)
 ```
 
 
-Bar plot showing relationship between brands and number of owners
+### Bar plot showing relationship between brands and number of owners
 
 ```{r}
 ggplot(data = bike_data_new) +
