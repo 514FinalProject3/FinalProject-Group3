@@ -62,6 +62,30 @@ hist(bike_data$power)
 > These graphs show us that outliers do indeed exist in this data. The boxplot (of the scaled data) indicates that all of the outliers are high and exist beyond Q3, and also shows that the interquartile range is small, and that Q1 and Q3 are as well.
 The histogram (not scaled) indicates the true values of the power of these bikes, and we can immediately see that the majority of them have a power of under 50, with over 2500 falling into the 20-29 range alone. However, there are still some small numbers of bikes that exceed that, some with a power of close to 200.
 
+Extracting brand names from model names column to be used in later graphs
+
+```{r}
+brand_model <- bike_data$model_name 
+testing <- str_split_fixed(brand_model, " ", 2)
+brand_name <- testing[,1]
+brand_name = str_replace_all(brand_name, "Royal", "Royal Enfield")
+brand_df <- data.frame(brand_name)
+
+bike_data_new <- cbind(bike_data, brand_df)
+```
+
+
+Bar plot showing relationship between brands and number of owners
+
+```{r}
+ggplot(data = bike_data_new) +
+  geom_bar(mapping = aes(fill = brand_name, x = owner))
+```
+
+> "Owner" is a discrete category found in bike_data and "brand_name" is a discrete category that has been appended to the data by extracting existing values.
+This barplot illustrates the relationship between the brand/make of the bikes and how many owners they've had. While the categories for "third owner" and "fourth owner or more" are too small to be discernible, this plot shows us that Royal Enfield, Bajaj, Honda and Yamaha are the most popular brands for bikes for both first and second owners, which could potentially be attributed to their longevity.
+
+
 ## Part 3 - Hypothesis Testing
 
 ```{r }
