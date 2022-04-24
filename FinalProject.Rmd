@@ -25,23 +25,40 @@ bike_data <- read_csv("Cleaned_bike_data.csv",show_col_types = FALSE)
 summary(bike_data)
 ```
 
-We can see that there are different columns in the table which are Model_name, Model_year, Kms_driven, Owner, Location, Mileage, Power and Price.
+> We can see that there are different columns in the table which are Model_name, Model_year, Kms_driven, Owner, Location, Mileage, Power and Price.
 
-To determine the different types of the datatypes, we can use the str command in R. This command tells us the different types of data which is present in the datasheet.
+### To determine the different types of the datatypes, we can use the str command in R. This command tells us the different types of data which is present in the datasheet.
+
 ```{r}
 str(bike_data)
 ```
 
-The different types of datatypes which are present in the dataset are numeric and charachter.  
+> The different types of datatypes which are present in the dataset are numeric and charachter.  
 
-To determine the null values in the table, we can use the built in method in R. 
+### To determine the null values in the table, we can use the built in method in R. 
 
 ```{r}
 null_values <- sum(is.na(bike_data)) 
 null_values
 ```
 
-With the above method, we can see that there are 0 missing/Null values in the dataset.
+> With the above method, we can see that there are 0 missing/Null values in the dataset.
+
+### Using built in methods to check for duplicates
+
+```{r}
+duplicate_values <- sum(duplicated(bike_data))
+duplicate_values
+```
+
+> There are 2 duplicate values in this dataset, that we will remove.
+
+### Removing duplicates
+
+```{r}
+bike_data <- bike_data[!duplicated(bike_data),]
+```
+
 
 ## Part 2 - Graphical Overview
 
