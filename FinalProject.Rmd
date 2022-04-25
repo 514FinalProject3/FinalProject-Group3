@@ -9,7 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tigerstats)
 library(readr)
 library(tidyverse)
-#library(webr)
+require(webr)
 ```
 
 ## Section 1 - Loading the data and Exploring the data
@@ -105,13 +105,16 @@ This barplot illustrates the relationship between the brand/make of the bikes an
 
 
 ## Part 3 - Hypothesis Testing
-
+This part we gonna discuss about Hypothesis testing in order to see if it has meaningful results. We did three hypothesis testing. All of these focus on bike’s price. 
 ```{r }
 data <- read.csv("Cleaned_bike_data.csv")
 str(data)
 ```
 
-### Testing First hand owner price higher the Second hand owner (One-side test)
+
+
+### First hand owner price higher the Second hand owner (One-side test)
+Let’s begin with testing First hand owner price and the Second hand owner, the hypothesis is the first hand price should higher. Therefore, H0 is the first owner price and second owner price are equal. The alternative is first owner price will higher that the second hand price. 
 
 \begin{align*}
 H_0: \mu_{first\_owner\_price}-\mu_{second\_owner\_price} & = 0 \\
@@ -135,8 +138,13 @@ ggplot(first_second_owner, aes(x=owner, y=price, fill=owner)) +
     scale_fill_brewer(palette="Dark2") +
     coord_flip()
 ```
-#### Don't know variance. So, use T-testing but need to check variance whether or not equal. \
-#### Check variance equal or not \
+\
+
+>Check boxplot and we can see that there are many extreme price for first hand owners and the both median price look no different.
+
+ \
+Don't know variance. So, use T-testing but need to check variance whether or not equal. \
+Check variance equal or not \
 
 \begin{align*}
 H_0: \sigma_{first\_owner\_price}^2 = \sigma_{second\_owner\_price}^2 \\
@@ -150,18 +158,19 @@ var.test(first_hand_owner$price, second_hand_owner$price, alternative = "two.sid
 #t-testing
 t.test(first_hand_owner$price, second_hand_owner$price,alternative="greater", var.equal = TRUE, conf.level = 0.95)
 
-#plot(t.test(first_hand_owner$price, second_hand_owner$price,alternative="greater", var.equal = TRUE, conf.level = 0.95))
+plot(t.test(first_hand_owner$price, second_hand_owner$price,alternative="greater", var.equal = TRUE, conf.level = 0.95))
 
 ```
 \
->Should not reject Mu(first_price)=Mu(second_price) 
+>Due to we don’t have variance, we have to choose T-testing. However, we need to check the variance between two groups first whether it equal or not.  P value greater than .05 So, we should not reject H0. It means the variance of two groups are equal.  Then do one-side t testing, the result of the testing P value greater than  .05. It means that we should not reject H0. It indicates that we can accept that first hand owner price not different from the second hand owner price.
 
 
-### Testing Price of Second hand bike not be different from third and later (Two-side test) \
+### Price of second hand bike not be different from third and later price (Two-side test) \
+The second testing, we will check whether or not Price of Second hand bike not be different from third and later hand. 
 
 \begin{align*}
 H_0: \mu_{second\_owner\_price}-\mu_{later\_second\_owner\_price} & = 0 \\
-H_1: \mu_{second\_owner\_price}-\mu_{later\_second\_owner\_price} & > 0 
+H_1: \mu_{second\_owner\_price}-\mu_{later\_second\_owner\_price} & \ne 0 
 \end{align*}
 
 
@@ -180,10 +189,12 @@ ggplot(second_later_owner, aes(x=owner, y=price, fill=owner)) +
     scale_fill_brewer(palette="Dark2") +
     coord_flip()
 ```
+\
 
+>After split the data into two group, we created a boxplot.  We can see that the second owners has more outliers and the the range larger. 
 
-#### Don't know variance. So, use T-testing but need to check variance whether or not equal. \
-#### Check variance equal or not \
+Don't know variance. So, use T-testing but need to check variance whether or not equal. \
+Check variance equal or not \
 \begin{align*}
 H_0: \sigma_{second\_owner\_price}^2 = \sigma_{later\_second\_owner\_price}^2 \\
 H_1:  \sigma_{second\_owner\_price}^2 \ne \sigma_{later\_second\_owner\_price}^2 
@@ -196,17 +207,18 @@ var.test(second_hand_owner$price, later_second_hand_owner$price, alternative = "
 #t-testing
 t.test(second_hand_owner$price, later_second_hand_owner$price,alternative="two.sided", var.equal = FALSE, conf.level = 0.95)
 
-#plot(t.test(second_hand_owner$price, later_second_hand_owner$price,alternative="two.sided", var.equal = FALSE, conf.level = 0.95))
+plot(t.test(second_hand_owner$price, later_second_hand_owner$price,alternative="two.sided", var.equal = FALSE, conf.level = 0.95))
 ```
-\
-> Should reject Mu(second_price)=Mu(later_second_price) => (Mu(second_price) != Mu(later_second_price)
+
+> Due to we don’t have variance, we have to choose T-testing. However, we need to check the variance between two groups first whether it equal or not.  P value less than .05 So, we should reject H0. It means the variance of two groups are not equal.  Then do two-side t testing, the result of the testing P value less than  .05. It means that we should reject H0. It indicates that we can accept that second hand owner price is different from the later owner price.
 
 
-### Testing Higher median kms driven price cheaper than lower median kms driven price (One side test)
+### Higher kilometers driven price cheaper than lower kilometers driven price (One side test)
+The last hypothesis testing, we will test on the hypothesis about the price of two group which was splited by the median of kilometers. The group that has higher kilometers driven will cheaper than the group that has lower kilometers driven.
 
 \begin{align*}
-H_0: \mu_{greater\_median\_kms\_driven}-\mu_{less\_median\_kms\_driven} & = 0 \\
-H_1: \mu_{greater\_median\_kms\_driven}-\mu_{less\_median\_kms\_driven} & > 0
+H_0: \mu_{greater\_kms\_driven\_price}-\mu_{less\_kms\_driven\_price} & = 0 \\
+H_1: \mu_{greater\_kms\_driven\_price}-\mu_{less\_kms\_driven\_price} & < 0
 \end{align*}
 
 ```{r,  fig.width=8, fig.height=7}
@@ -229,9 +241,12 @@ ggplot(all_kms_driven, aes(x=median_kms_driven, y=price, fill=median_kms_driven)
     coord_flip()
 
 ```
+\
 
-#### Don't know variance. So, use T-testing but need to check variance whether or not equal.
-#### Check variance equal or not
+>The boxplot shows that the group that has less kms driven has higher price.
+
+Don't know variance. So, use T-testing but need to check variance whether or not equal.
+Check variance equal or not
 \begin{align*}
 H_0: \sigma_{greater\_median\_kms\_driven\_price}^2 = \sigma_{less\_median\_kms\_driven\_price}^2 \\
 H_1:  \sigma_{greater\_median\_kms\_driven\_price}^2 \ne \sigma_{less\_median\_kms\_driven\_price}^2 
@@ -244,11 +259,10 @@ var.test(greater_median_kms_driven$price, less_median_kms_driven$price , alterna
 #t-testing
 t.test(greater_median_kms_driven$price, less_median_kms_driven$price,alternative="less", var.equal = FALSE, conf.level = 0.95)
 
-#plot(t.test(greater_median_kms_driven$price, less_median_kms_driven$price,alternative="less", var.equal = FALSE, conf.level = 0.95))
+plot(t.test(greater_median_kms_driven$price, less_median_kms_driven$price,alternative="less", var.equal = FALSE, conf.level = 0.95))
 ```
 \
-> Should reject H0 Mu(over_mean_kms_driven_price)=Mu(less_mean_kms_driven_price) => Mu(over_mean_kms_driven_price)< Mu(less_mean_kms_driven_price)
-
+> Due to we don’t have variance, we have to choose T-testing. However, we need to check the variance between two groups first whether it equal or not.  P value less than .05 So, we should reject H0. It means the variance of two groups are not equal.  Then do one-side t testing, the result of the testing P value much less than  .05. It means that we should reject H0. It would mean that we can accept that the group that has greater kilometer driven will cheaper than less kilometer driven.
 
 
 
