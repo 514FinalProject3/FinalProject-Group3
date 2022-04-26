@@ -17,12 +17,12 @@ require(webr)
 We have selected Bike dataset to perform exploration of the data. We start by loading the data into the R Markdown file
 
 ```{r}
-bike_data <- read_csv("Cleaned_bike_data.csv",show_col_types = FALSE)
+bikeData <- read_csv("Cleaned_bike_data.csv",show_col_types = FALSE)
 ```
 
 
 ```{r}
-summary(bike_data)
+summary(bikeData)
 ```
 
 > We can see that there are different columns in the table which are Model_name, Model_year, Kms_driven, Owner, Location, Mileage, Power and Price.
@@ -30,7 +30,7 @@ summary(bike_data)
 ### To determine the different types of the datatypes, we can use the str command in R. This command tells us the different types of data which is present in the datasheet.
 
 ```{r}
-str(bike_data)
+str(bikeData)
 ```
 
 > The different types of datatypes which are present in the dataset are numeric and charachter.  
@@ -38,7 +38,7 @@ str(bike_data)
 ### To determine the null values in the table, we can use the built in method in R. 
 
 ```{r}
-null_values <- sum(is.na(bike_data)) 
+null_values <- sum(is.na(bikeData)) 
 null_values
 ```
 
@@ -47,8 +47,8 @@ null_values
 ### Using built in methods to check for duplicates
 
 ```{r}
-duplicate_values <- sum(duplicated(bike_data))
-duplicate_values
+duplicate_values_old <- sum(duplicated(bikeData))
+duplicate_values_old
 ```
 
 > There are 2 duplicate values in this dataset, that we will remove.
@@ -56,7 +56,9 @@ duplicate_values
 ### Removing duplicates
 
 ```{r}
-bike_data <- bike_data[!duplicated(bike_data),]
+bike_data <- bikeData[!duplicated(bikeData),]
+duplicate_values_new <- sum(duplicated(bike_data))
+duplicate_values_new
 ```
 
 
