@@ -82,8 +82,8 @@ hist(bike_data$model_year, main = "Frequency of Bikes per Model Year", xlab = "M
 ```{r}
 standard_bikePower <- scale(bike_data$power)
 par(mfrow = c(1,2))
-boxplot(standard_bikePower)
-hist(bike_data$power)
+boxplot(standard_bikePower, main = "Boxplot of Power (standardized)")
+hist(bike_data$power, main = "Histogram of Power (not standardized)")
 ```
 
 > These graphs show us that outliers do indeed exist in this data. The boxplot (of the scaled data) indicates that all of the outliers are high and exist beyond Q3, and also shows that the interquartile range is small, and that Q1 and Q3 are as well.
