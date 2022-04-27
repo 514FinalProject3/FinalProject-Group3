@@ -1,7 +1,15 @@
 ---
+<<<<<<< Updated upstream
 title: "Final Project"
 author: "Group 3 - Hareem, Kreetha, Parth"
 output: html_document
+=======
+title: "FinalProject"
+author: "Group 3"
+output:
+  html_document: default
+  word_document: default
+>>>>>>> Stashed changes
 ---
 
 ```{r setup, include=FALSE}
@@ -153,8 +161,8 @@ str(data)
 Let’s begin with testing First hand owner price and the Second hand owner, the hypothesis is the first hand price should higher. Therefore, H0 is the first owner price and second owner price are equal. The alternative is first owner price will higher that the second hand price. 
 
 \begin{align*}
-H_0: \mu_{first\_owner\_price}-\mu_{second\_owner\_price} & = 0 \\
-H_1: \mu_{first\_owner\_price}-\mu_{second\_owner\_price} & > 0 
+H_0: \mu_{first\_owner\_price} & = \mu_{second\_owner\_price}\\
+H_1: \mu_{first\_owner\_price} & > \mu_{second\_owner\_price}
 \end{align*}
 
 ```{r , fig.width=8, fig.height=7}
@@ -205,8 +213,8 @@ plot(t.test(first_hand_owner$price, second_hand_owner$price,alternative="greater
 The second testing, we will check whether or not Price of Second hand bike not be different from third and later hand. 
 
 \begin{align*}
-H_0: \mu_{second\_owner\_price}-\mu_{later\_second\_owner\_price} & = 0 \\
-H_1: \mu_{second\_owner\_price}-\mu_{later\_second\_owner\_price} & \ne 0 
+H_0: \mu_{second\_owner\_price} & = \mu_{later\_second\_owner\_price} \\
+H_1: \mu_{second\_owner\_price} & \ne \mu_{later\_second\_owner\_price}
 \end{align*}
 
 
@@ -253,8 +261,8 @@ plot(t.test(second_hand_owner$price, later_second_hand_owner$price,alternative="
 The last hypothesis testing, we will test on the hypothesis about the price of two group which was splited by the median of kilometers. The group that has higher kilometers driven will cheaper than the group that has lower kilometers driven.
 
 \begin{align*}
-H_0: \mu_{greater\_kms\_driven\_price}-\mu_{less\_kms\_driven\_price} & = 0 \\
-H_1: \mu_{greater\_kms\_driven\_price}-\mu_{less\_kms\_driven\_price} & < 0
+H_0: \mu_{greater\_kms\_driven\_price} & = \mu_{less\_kms\_driven\_price} \\
+H_1: \mu_{greater\_kms\_driven\_price} & < \mu_{less\_kms\_driven\_price}
 \end{align*}
 
 ```{r,  fig.width=8, fig.height=7}

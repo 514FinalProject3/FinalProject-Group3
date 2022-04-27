@@ -360,7 +360,12 @@ pre code {
 </div>
 <div id="section-1---loading-the-data-and-exploring-the-data" class="section level2">
 <h2>Section 1 - Loading the data and Exploring the data</h2>
+<<<<<<< Updated upstream
 <p>We have selected Bike dataset to perform exploration of the data. We start by loading the data into the R Markdown file</p>
+=======
+<p>We have selected Bike dataset to perform exploration of the data. We
+start by loading the data into the R Markdown file</p>
+>>>>>>> Stashed changes
 <pre class="r"><code>bikeData &lt;- read_csv(&quot;Cleaned_bike_data.csv&quot;,show_col_types = FALSE)</code></pre>
 <pre class="r"><code>summary(bikeData)</code></pre>
 <pre><code>##   model_name          model_year     kms_driven         owner          
@@ -381,9 +386,17 @@ pre code {
 <p>We can see that there are different columns in the table which are Model_name, Model_year, Kms_driven, Owner, Location, Mileage, Power and Price.</p>
 </blockquote>
 <div id="to-determine-the-different-types-of-the-datatypes-we-can-use-the-str-command-in-r.-this-command-tells-us-the-different-types-of-data-which-is-present-in-the-datasheet." class="section level3">
+<<<<<<< Updated upstream
 <h3>To determine the different types of the datatypes, we can use the str command in R. This command tells us the different types of data which is present in the datasheet.</h3>
 <pre class="r"><code>str(bikeData)</code></pre>
 <pre><code>## spec_tbl_df [5,062 × 8] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+=======
+<h3>To determine the different types of the datatypes, we can use the
+str command in R. This command tells us the different types of data
+which is present in the datasheet.</h3>
+<pre class="r"><code>str(bikeData)</code></pre>
+<pre><code>## spec_tbl_df [5,062 x 8] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+>>>>>>> Stashed changes
 ##  $ model_name: chr [1:5062] &quot;Bajaj Avenger Cruise&quot; &quot;Royal Enfield Classic&quot; &quot;Hyosung GT250R 2012&quot; &quot;KTM Duke&quot; ...
 ##  $ model_year: num [1:5062] 2017 2016 2012 2012 2016 ...
 ##  $ kms_driven: num [1:5062] 17000 50000 14795 24561 19718 ...
@@ -409,7 +422,12 @@ pre code {
 </blockquote>
 </div>
 <div id="to-determine-the-null-values-in-the-table-we-can-use-the-built-in-method-in-r." class="section level3">
+<<<<<<< Updated upstream
 <h3>To determine the null values in the table, we can use the built in method in R.</h3>
+=======
+<h3>To determine the null values in the table, we can use the built in
+method in R.</h3>
+>>>>>>> Stashed changes
 <pre class="r"><code>null_values &lt;- sum(is.na(bikeData)) 
 null_values</code></pre>
 <pre><code>## [1] 0</code></pre>
@@ -523,8 +541,13 @@ str(data)</code></pre>
 <h3>First hand owner price higher the Second hand owner (One-side test)</h3>
 <p>Let’s begin with testing First hand owner price and the Second hand owner, the hypothesis is the first hand price should higher. Therefore, H0 is the first owner price and second owner price are equal. The alternative is first owner price will higher that the second hand price.</p>
 <p><span class="math display">\[\begin{align*}
+<<<<<<< Updated upstream
 H_0: \mu_{first\_owner\_price}-\mu_{second\_owner\_price} &amp; = 0 \\
 H_1: \mu_{first\_owner\_price}-\mu_{second\_owner\_price} &amp; &gt; 0 
+=======
+H_0: \mu_{first\_owner\_price} &amp; = \mu_{second\_owner\_price}\\
+H_1: \mu_{first\_owner\_price} &amp; &gt; \mu_{second\_owner\_price}
+>>>>>>> Stashed changes
 \end{align*}\]</span></p>
 <pre class="r"><code>#split first hand owner and second hand owner
 first_hand_owner &lt;- subset(data, owner==&quot;first owner&quot;)
@@ -588,8 +611,15 @@ t.test(first_hand_owner$price, second_hand_owner$price,alternative=&quot;greater
 </h3>
 <p>The second testing, we will check whether or not Price of Second hand bike not be different from third and later hand.</p>
 <p><span class="math display">\[\begin{align*}
+<<<<<<< Updated upstream
 H_0: \mu_{second\_owner\_price}-\mu_{later\_second\_owner\_price} &amp; = 0 \\
 H_1: \mu_{second\_owner\_price}-\mu_{later\_second\_owner\_price} &amp; \ne 0 
+=======
+H_0: \mu_{second\_owner\_price} &amp; =
+\mu_{later\_second\_owner\_price} \\
+H_1: \mu_{second\_owner\_price} &amp; \ne
+\mu_{later\_second\_owner\_price}
+>>>>>>> Stashed changes
 \end{align*}\]</span></p>
 <pre class="r"><code>second_hand_owner &lt;- subset(data, owner==&quot;second owner&quot;)
 later_second_hand_owner &lt;- subset(data, owner ==&quot;third owner&quot; | owner == &quot;fourth owner or more&quot;)
@@ -652,8 +682,15 @@ t.test(second_hand_owner$price, later_second_hand_owner$price,alternative=&quot;
 <h3>Higher kilometers driven price cheaper than lower kilometers driven price (One side test)</h3>
 <p>The last hypothesis testing, we will test on the hypothesis about the price of two group which was splited by the median of kilometers. The group that has higher kilometers driven will cheaper than the group that has lower kilometers driven.</p>
 <p><span class="math display">\[\begin{align*}
+<<<<<<< Updated upstream
 H_0: \mu_{greater\_kms\_driven\_price}-\mu_{less\_kms\_driven\_price} &amp; = 0 \\
 H_1: \mu_{greater\_kms\_driven\_price}-\mu_{less\_kms\_driven\_price} &amp; &lt; 0
+=======
+H_0: \mu_{greater\_kms\_driven\_price} &amp; =
+\mu_{less\_kms\_driven\_price} \\
+H_1: \mu_{greater\_kms\_driven\_price} &amp; &lt;
+\mu_{less\_kms\_driven\_price}
+>>>>>>> Stashed changes
 \end{align*}\]</span></p>
 <pre class="r"><code>median(data$kms_driven)</code></pre>
 <pre><code>## [1] 18000</code></pre>
