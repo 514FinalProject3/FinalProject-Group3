@@ -25,9 +25,10 @@ bikeData <- read_csv("bike_data.csv",show_col_types = FALSE)
 
 ```{r}
 summary(bikeData)
+dim(bikeData)
 ```
 
-> We can see that there are different columns in the table which are Model_name, Model_year, Kms_driven, Owner, Location, Mileage, Power and Price.
+> We can see that there are different columns in the table which are Model_name, Model_year, Kms_driven, Owner, Location, Mileage, Power and Price. There are 5062 observations in this data set and 8 variables.
 
 ### To determine the different types of the datatypes, we can use the str command in R. This command tells us the different types of data which is present in the datasheet.
 
@@ -35,7 +36,7 @@ summary(bikeData)
 str(bikeData)
 ```
 
-> The different types of datatypes which are present in the dataset are numeric and charachter.  
+> The different types of datatypes which are present in the dataset are numeric and character.  
 
 ### To determine the null values in the table, we can use the built in method in R. 
 
@@ -61,8 +62,10 @@ duplicate_values_old
 bike_data <- bikeData[!duplicated(bikeData),]
 duplicate_values_new <- sum(duplicated(bike_data))
 duplicate_values_new
+dim(bike_data)
 ```
 
+> As we can see now, there are no duplicate values, and the number of observations has dropped by 2, to 5060.
 
 ## Part 2 - Graphical Overview
 
@@ -385,4 +388,4 @@ plot(backward)
 ```
 
 
-> We can see that both the models have the same accuracy and same mean square error and Mean absolute error. The accuracy for both the models is 77.02%.
+> We can see that both the models have the same accuracy and same mean square error and Mean absolute error. The accuracy for both the models is 78.42%.
