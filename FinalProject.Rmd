@@ -1,15 +1,7 @@
 ---
-<<<<<<< Updated upstream
 title: "Final Project"
 author: "Group 3 - Hareem, Kreetha, Parth"
 output: html_document
-=======
-title: "FinalProject"
-author: "Group 3"
-output:
-  html_document: default
-  word_document: default
->>>>>>> Stashed changes
 ---
 
 ```{r setup, include=FALSE}
