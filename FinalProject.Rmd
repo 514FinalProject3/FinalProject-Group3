@@ -64,6 +64,8 @@ duplicate_values_new
 
 ## Part 2 - Graphical Overview
 
+#### Histogram to show number of bikes by model year
+
 ```{r pressure, echo=FALSE}
 hist(bike_data$model_year, main = "Frequency of Bikes per Model Year", xlab = "Model Year", ylab = "Frequency")
 ```
@@ -104,6 +106,36 @@ ggplot(data = bike_data_new) +
 
 > "Owner" is a discrete category found in bike_data and "brand_name" is a discrete category that has been appended to the data by extracting existing values.
 This barplot illustrates the relationship between the brand/make of the bikes and how many owners they've had. While the categories for "third owner" and "fourth owner or more" are too small to be discernible, this plot shows us that Royal Enfield, Bajaj, Honda and Yamaha are the most popular brands for bikes for both first and second owners, which could potentially be attributed to their longevity.
+
+#### Overlay Histogram to show relationship between mileage and power
+
+```{r}
+# picking colors and setting transparency
+blue <-rgb(41, 104, 128, max = 255, alpha = 175)
+green <- rgb(60, 138, 43, max = 255, alpha = 175)
+
+# renaming variables for ease 
+mileage <- bike_data_new$mileage
+power <- bike_data_new$power
+
+# finding ranges and breaks for histogram
+ranges <- range(c(mileage, power))
+br <- pretty(ranges, n = 25)
+
+# save histogram data for each variable
+histM <- hist(mileage, breaks = br, plot = F)
+histP <- hist(power, breaks = br, plot = F)
+
+# plot first histogram
+plot(histM, col = blue, ylim = c(0, 3000), main = "Overlay histogram showing mileage and power", xlab = "mileage, power")
+
+# overlay second histogram
+plot(histP, col = green, add = T)
+
+# adding legend
+legend("topright", inset = 0.05, legend = c("Mileage", "Power"), fill = c(rgb(41, 104, 128, max = 255, alpha = 175), rgb(60, 138, 43, max = 255, alpha = 175)), border = "black")
+```
+
 
 
 ## Part 3 - Hypothesis Testing
