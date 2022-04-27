@@ -12,14 +12,14 @@ library(tidyverse)
 require(webr)
 ```
 
-#### Github Organization/Repository maintained by group members for duration of this project: https://github.com/514FinalProject3/FinalProject-Group3
+#### Github Repository maintained by group members for duration of this project: https://github.com/514FinalProject3/FinalProject-Group3
 
 ## Section 1 - Loading the data and Exploring the data
 
 We have selected Bike dataset to perform exploration of the data. We start by loading the data into the R Markdown file
 
 ```{r}
-bikeData <- read_csv("Cleaned_bike_data.csv",show_col_types = FALSE)
+bikeData <- read_csv("bike_data.csv",show_col_types = FALSE)
 ```
 
 
@@ -143,7 +143,7 @@ legend("topright", inset = 0.05, legend = c("Mileage", "Power"), fill = c(rgb(41
 ## Part 3 - Hypothesis Testing
 This part we gonna discuss about Hypothesis testing in order to see if it has meaningful results. We did three hypothesis testing. All of these focus on bike’s price. 
 ```{r }
-data <- read.csv("Cleaned_bike_data.csv")
+data <- read.csv("bike_data.csv")
 str(data)
 ```
 
