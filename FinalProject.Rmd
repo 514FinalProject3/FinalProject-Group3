@@ -1,6 +1,6 @@
 ---
-title: "FinalProject"
-author: "Group 3"
+title: "Final Project"
+author: "Group 3 - Hareem, Kreetha, Parth"
 output: html_document
 ---
 
@@ -11,6 +11,8 @@ library(readr)
 library(tidyverse)
 require(webr)
 ```
+
+#### Github Organization/Repository maintained by group members for duration of this project: https://github.com/514FinalProject3/FinalProject-Group3
 
 ## Section 1 - Loading the data and Exploring the data
 
@@ -127,16 +129,16 @@ histM <- hist(mileage, breaks = br, plot = F)
 histP <- hist(power, breaks = br, plot = F)
 
 # plot first histogram
-plot(histM, col = blue, ylim = c(0, 3000), main = "Overlay histogram showing mileage and power", xlab = "mileage, power")
+plot(histP, col = green, ylim = c(0, 2750), main = "Overlay histogram showing mileage and power", xlab = "mileage, power")
 
 # overlay second histogram
-plot(histP, col = green, add = T)
+plot(histM, col = blue, add = T)
 
 # adding legend
 legend("topright", inset = 0.05, legend = c("Mileage", "Power"), fill = c(rgb(41, 104, 128, max = 255, alpha = 175), rgb(60, 138, 43, max = 255, alpha = 175)), border = "black")
 ```
 
-
+> This overlay histogram illustrates the relationship between mileage and power. While the overlay is not perfect, we can see that most motorcycles have lower powered engines, and their average mileage is also lower on the spectrum. There is not enough data on bikes with extremely powerful engines, but if you look closely enough, there are some small bars near the end of the x-axis, but no conclusions can be drawn from them.
 
 ## Part 3 - Hypothesis Testing
 This part we gonna discuss about Hypothesis testing in order to see if it has meaningful results. We did three hypothesis testing. All of these focus on bike’s price. 
